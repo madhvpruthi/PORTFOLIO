@@ -1,0 +1,210 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+ 
+
+body{
+  font-family: 'Space Grotesk', sans-serif;
+  background:#f4f1ea;
+  color:#2f3b2f;
+  overflow-x:hidden;
+}
+
+
+
+
+html{
+  scroll-behavior:smooth;
+}
+
+
+
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+
+  background-image:
+  url("https://www.transparenttextures.com/patterns/cubes.png");
+
+  opacity:0.12;
+  pointer-events:none;
+  z-index:-30;
+}
+
+
+
+
+.hero-dark{
+  background:
+  radial-gradient(circle at 20% 20%, #020617, #020617),
+  linear-gradient(180deg,#020617,#030712);
+  position:relative;
+}
+
+
+
+.hero-stars::before{
+
+  content:"";
+  position:absolute;
+  inset:0;
+
+  background-image:
+  radial-gradient(white 1px, transparent 1px);
+
+  background-size:70px 70px;
+
+  opacity:0.25;
+  pointer-events:none;
+}
+
+
+
+
+.hero-name{
+  font-family:'Clash Display', sans-serif;
+  font-weight:700;
+  letter-spacing:-2px;
+}
+
+
+
+
+.btn-primary{
+  background:white;
+  color:black;
+  padding:12px 28px;
+  border-radius:12px;
+  font-weight:500;
+  transition:all .3s ease;
+}
+
+.btn-primary:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 25px rgba(0,0,0,0.25);
+}
+
+
+.btn-outline{
+  border:1px solid rgba(255,255,255,0.4);
+  padding:12px 28px;
+  border-radius:12px;
+  transition:all .3s ease;
+}
+
+.btn-outline:hover{
+  background:white;
+  color:black;
+}
+
+
+
+
+.glass-tile{
+  backdrop-filter:blur(10px);
+  background:rgba(255,255,255,0.75);
+  border:1px solid rgba(0,0,0,0.05);
+  box-shadow:0 10px 30px rgba(0,0,0,0.08);
+  border-radius:14px;
+}
+
+
+
+
+.skill-card{
+
+  background:linear-gradient(
+    180deg,
+    #1e293b,
+    #020617
+  );
+
+  border-radius:12px;
+  box-shadow:
+  0 8px 20px rgba(0,0,0,0.4);
+
+  transition:all .25s ease;
+}
+
+.skill-card:hover{
+  transform:translateY(-6px) scale(1.05);
+}
+
+
+
+
+.gradient-text{
+  background:linear-gradient(
+    90deg,
+    white,
+    #d1d5db,
+    white
+  );
+
+  -webkit-background-clip:text;
+  color:transparent;
+}
+
+
+
+
+.scroll-indicator{
+  border:1px solid rgba(255,255,255,0.4);
+  width:26px;
+  height:42px;
+  border-radius:20px;
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+}
+
+.scroll-dot{
+  width:4px;
+  height:8px;
+  background:white;
+  margin-top:8px;
+  border-radius:10px;
+}
+
+
+@keyframes twinkle{
+0%{opacity:0.2}
+50%{opacity:1}
+100%{opacity:0.2}
+}
+@keyframes starMove{
+
+0%{
+transform:translateY(0px) translateX(0px);
+}
+
+50%{
+transform:translateY(-20px) translateX(10px);
+}
+
+100%{
+transform:translateY(0px) translateX(0px);
+}
+
+}
+
+@keyframes twinkle{
+
+0%{opacity:0.3}
+
+50%{opacity:1}
+
+100%{opacity:0.3}
+
+}
