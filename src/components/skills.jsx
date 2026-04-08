@@ -135,10 +135,8 @@ export default function Skills() {
   ];
 
   return (
-    <section id="skills" className="min-h-screen flex flex-col items-center justify-center relative px-6 z-10 w-full pt-16 pb-24 group/section overflow-hidden">
+    <section id="skills" className="min-h-screen flex flex-col items-center relative px-6 z-10 w-full pt-16 pb-24 overflow-hidden">
       
-
-
       <div className="max-w-6xl mx-auto w-full flex flex-col items-center relative gap-16 z-20">
         
 
@@ -147,17 +145,18 @@ export default function Skills() {
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/50 border border-gray-200/40 shadow-sm backdrop-blur-xl mb-6 hover:shadow-cyan-100/50 hover:bg-white/80 transition-all cursor-crosshair group/badge"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gray-300 shadow-sm mb-6 bg-white/50 backdrop-blur-md"
           >
-            <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_8px_rgba(6,182,212,0.5)] group-hover/badge:scale-125 transition-transform"></span>
-            <span className="text-xs font-bold tracking-widest uppercase text-gray-600 group-hover/badge:text-gray-900 transition-colors">Digital Arsenal</span>
+            <span className="w-2 h-2 rounded-full bg-gray-800"></span>
+            <span className="text-xs font-bold tracking-widest uppercase text-gray-800">Digital Arsenal</span>
           </motion.div>
 
           <motion.h1 
             initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 0.7, delay: 0.1, ease: [0.21, 0.47, 0.32, 0.98] }}
-            className="text-5xl md:text-7xl font-extrabold mb-6 tracking-tighter text-transparent bg-clip-text bg-gradient-to-br from-gray-900 via-gray-800 to-gray-500 pb-2"
+            className="text-4xl md:text-5xl lg:text-7xl font-bold mb-6 tracking-tight text-gray-900 pb-2"
+            style={{ fontFamily: "'Clash Display', sans-serif" }}
           >
             My Skills
           </motion.h1>
@@ -165,13 +164,13 @@ export default function Skills() {
             initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 0.7, delay: 0.2, ease: [0.21, 0.47, 0.32, 0.98] }}
-            className="text-lg md:text-xl text-gray-500 max-w-2xl font-medium leading-relaxed"
+            className="text-base md:text-lg lg:text-xl text-gray-500 max-w-2xl font-medium leading-relaxed"
           >
             An extensive breakdown of the precise technologies, frameworks, and programming languages I use to craft scalable web and mobile experiences.
           </motion.p>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 grid-flow-dense gap-4 md:gap-6 w-full max-w-5xl z-20 perspective-[2000px]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 grid-flow-dense gap-4 md:gap-6 w-full max-w-5xl z-20 perspective-[2000px]">
           {skills.map((skill, index) => (
             <SkillCard key={skill.name} skill={skill} index={index} />
           ))}

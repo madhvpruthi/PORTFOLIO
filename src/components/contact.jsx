@@ -17,7 +17,7 @@ function Contact({ setContactInView }) {
 
   return (
     <>
-      <section id="contact" ref={ref} className="pt-32 pb-16 relative z-8 flex flex-col items-center justify-center min-h-[70vh] overflow-hidden">
+      <section id="contact" ref={ref} className="pt-20 sm:pt-32 pb-8 sm:pb-16 relative z-8 flex flex-col items-center justify-center min-h-[70vh] sm:min-h-[70vh] overflow-hidden">
         
         <div className="w-full mx-auto flex flex-col items-center relative z-10">
           
@@ -26,24 +26,24 @@ function Contact({ setContactInView }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-            className="text-center w-full px-6 mb-12"
+            className="text-center w-full px-6 mb-6 sm:mb-12"
           >
-            <h2 className="text-sm md:text-xl font-black tracking-[0.2em] text-gray-900 mb-8 uppercase flex items-center justify-center gap-4">
-              <span className="w-12 h-px bg-gray-900"></span>
+            <h2 className="text-[10px] sm:text-xs md:text-xl font-black tracking-widest md:tracking-[0.2em] text-gray-900 mb-8 uppercase flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 text-center">
+              <span className="w-8 sm:w-12 h-px bg-gray-900"></span>
               Let's build something extraordinary
-              <span className="w-12 h-px bg-gray-900"></span>
+              <span className="w-8 sm:w-12 h-px bg-gray-900"></span>
             </h2>
           </motion.div>
 
-          <div className="w-full overflow-hidden relative py-10 group bg-white/30 backdrop-blur-sm border-y border-white/40 shadow-[0_0_40px_rgba(0,0,0,0.03)] cursor-pointer" onClick={() => window.location.href="mailto:madhavpruthi@icloud.com"}>
+          <div className="w-full overflow-hidden relative py-6 sm:py-10 group bg-white/30 backdrop-blur-sm border-y border-white/40 shadow-[0_0_40px_rgba(0,0,0,0.03)] cursor-pointer" onClick={() => window.location.href="mailto:madhavpruthi@icloud.com"}>
             <motion.div 
               animate={{ x: [0, -1035] }}  
               transition={{ repeat: Infinity, ease: "linear", duration: 15 }}
               className="flex whitespace-nowrap items-center hover:text-indigo-600 transition-colors duration-500"
             >
               {[...Array(4)].map((_, i) => (
-                <h1 key={i} className="text-[12vw] md:text-[8vw] leading-none font-black text-black tracking-tighter uppercase px-8">
-                  MADHAVPRUTHI@ICLOUD.COM <span className="text-indigo-500/30 mx-4">•</span>
+                <h1 key={i} className="text-[8vw] sm:text-[6vw] md:text-[5vw] leading-none font-black text-black tracking-tighter uppercase px-4 sm:px-8">
+                  MADHAVPRUTHI@ICLOUD.COM <span className="text-indigo-500/30 mx-2 sm:mx-4">•</span>
                 </h1>
               ))}
             </motion.div>
@@ -60,11 +60,11 @@ function Contact({ setContactInView }) {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 1.2, delay: 0.4 }}
-            className="mt-20 flex flex-col sm:flex-row flex-wrap justify-between items-end w-full max-w-7xl px-6 gap-10 relative z-10"
+            className="mt-8 sm:mt-20 flex flex-col sm:flex-row flex-wrap justify-between items-center sm:items-end w-full max-w-7xl px-6 gap-6 sm:gap-10 relative z-10"
           >
 
             <div className="flex flex-col items-center sm:items-start gap-4">
-              <div className="flex gap-6 sm:gap-10 text-lg sm:text-xl font-black tracking-tighter uppercase">
+              <div className="flex flex-wrap gap-4 sm:gap-6 md:gap-10 text-base sm:text-lg md:text-xl font-black tracking-tighter uppercase justify-center sm:justify-start">
    
                 <a 
                   href="https://linkedin.com/in/madhavpruthi"

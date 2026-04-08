@@ -78,10 +78,10 @@ function App() {
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 1.05, filter: "blur(8px)" }}
                     transition={{ duration: 0.6, ease: "easeInOut" }}
-                    className="pt-24 min-h-screen flex flex-col"
+                    className="min-h-screen flex flex-col"
                   >
-                    <div className="max-w-7xl mx-auto px-6 w-full relative">
-                      <div className="pt-8">
+                    <div className="w-full relative">
+                      <div>
                         <Skills />
                       </div>
                     </div>
@@ -135,29 +135,29 @@ function App() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 40 }} 
                   transition={{ duration: 0.4, ease: "easeInOut" }}
-                  className="fixed bottom-8 flex flex-wrap justify-center gap-3 sm:gap-6 w-full px-4 z-40"
+                  className="fixed bottom-4 md:bottom-8 flex flex-row justify-center gap-2 sm:gap-6 w-full px-2 md:px-4 z-40 max-w-full overflow-x-auto no-scrollbar"
                 >
                   <button 
                     onClick={() => setCurrentPage(currentPage === "skills" ? "home" : "skills")}
-                    className={`group flex items-center justify-center gap-3 px-6 py-3 border border-gray-300 backdrop-blur-md rounded-full shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 font-medium ${currentPage === "skills" ? "bg-black text-white border-transparent" : "bg-white/80 text-gray-700 hover:bg-white hover:text-black"}`}
+                    className={`group flex items-center justify-center gap-2 md:gap-3 px-4 py-2.5 md:px-6 md:py-3 border border-gray-300 backdrop-blur-md rounded-full shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-sm md:text-base font-medium flex-shrink-0 ${currentPage === "skills" ? "bg-black text-white border-transparent" : "bg-white/80 text-gray-700 hover:bg-white hover:text-black"}`}
                   >
-                    <FaCode className={`text-lg transition-colors duration-300 ${currentPage === "skills" ? "text-gray-300" : "text-gray-400 group-hover:text-black"}`} />
+                    <FaCode className={`text-base md:text-lg transition-colors duration-300 ${currentPage === "skills" ? "text-gray-300" : "text-gray-400 group-hover:text-black"}`} />
                     {currentPage === "skills" ? "Home" : "Skills"}
                   </button>
 
                   <button 
                     onClick={() => setCurrentPage(currentPage === "projects" ? "home" : "projects")}
-                    className={`group flex items-center justify-center gap-3 px-6 py-3 border border-gray-300 backdrop-blur-md rounded-full shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 font-medium ${currentPage === "projects" ? "bg-black text-white border-transparent" : "bg-white/80 text-gray-700 hover:bg-white hover:text-black"}`}
+                    className={`group flex items-center justify-center gap-2 md:gap-3 px-4 py-2.5 md:px-6 md:py-3 border border-gray-300 backdrop-blur-md rounded-full shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-sm md:text-base font-medium flex-shrink-0 ${currentPage === "projects" ? "bg-black text-white border-transparent" : "bg-white/80 text-gray-700 hover:bg-white hover:text-black"}`}
                   >
-                    <FaServer className={`text-lg transition-colors duration-300 ${currentPage === "projects" ? "text-gray-300" : "text-gray-400 group-hover:text-black"}`} />
+                    <FaServer className={`text-base md:text-lg transition-colors duration-300 ${currentPage === "projects" ? "text-gray-300" : "text-gray-400 group-hover:text-black"}`} />
                     {currentPage === "projects" ? "Home" : "Projects"}
                   </button>
 
                   <button 
                     onClick={() => setCurrentPage(currentPage === "certificates" ? "home" : "certificates")}
-                    className={`group flex items-center justify-center gap-3 px-6 py-3 border border-gray-300 backdrop-blur-md rounded-full shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 font-medium ${currentPage === "certificates" ? "bg-black text-white border-transparent" : "bg-white/80 text-gray-700 hover:bg-white hover:text-black"}`}
+                    className={`group flex items-center justify-center gap-2 md:gap-3 px-4 py-2.5 md:px-6 md:py-3 border border-gray-300 backdrop-blur-md rounded-full shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-sm md:text-base font-medium flex-shrink-0 ${currentPage === "certificates" ? "bg-black text-white border-transparent" : "bg-white/80 text-gray-700 hover:bg-white hover:text-black"}`}
                   >
-                    <FaCertificate className={`text-lg transition-colors duration-300 ${currentPage === "certificates" ? "text-gray-300" : "text-gray-400 group-hover:text-black"}`} />
+                    <FaCertificate className={`text-base md:text-lg transition-colors duration-300 ${currentPage === "certificates" ? "text-gray-300" : "text-gray-400 group-hover:text-black"}`} />
                     {currentPage === "certificates" ? "Home" : "Certificates"}
                   </button>
                 </motion.div>

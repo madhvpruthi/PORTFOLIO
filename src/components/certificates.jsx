@@ -31,35 +31,36 @@ const certificatesData = [
 
 export default function Certificates() {
   return (
-    <section id="certificates" className="min-h-screen flex flex-col items-center relative px-6 z-10 w-full pt-20 pb-32 overflow-hidden">
-      <div className="max-w-[70rem] mx-auto w-full flex flex-col items-start relative gap-16 z-20">
+    <section id="certificates" className="min-h-screen flex flex-col items-center relative px-6 z-10 w-full pt-16 pb-24 overflow-hidden">
+      <div className="max-w-6xl mx-auto w-full flex flex-col items-center relative gap-16 z-20">
         
-        <div className="w-full relative z-20 flex flex-col items-start md:items-center text-left md:text-center">
+        <div className="text-center flex flex-col items-center relative z-20">
           <motion.div 
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full shadow-sm mb-8 bg-white border border-gray-200"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gray-300 shadow-sm mb-6 bg-white/50 backdrop-blur-md"
           >
-            <span className="w-2 h-2 rounded-full bg-black"></span>
-            <span className="text-[10px] font-black tracking-[0.2em] uppercase text-black">Verifications</span>
+            <span className="w-2 h-2 rounded-full bg-gray-800"></span>
+            <span className="text-xs font-bold tracking-widest uppercase text-gray-800">Verifications</span>
           </motion.div>
 
           <motion.h1 
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 0.7, delay: 0.1, ease: [0.21, 0.47, 0.32, 0.98] }}
-            className="text-6xl md:text-[6rem] font-thin uppercase tracking-tighter text-[#0f172a] leading-none mb-6"
+            className="text-4xl md:text-5xl lg:text-7xl font-bold mb-6 tracking-tight text-gray-900 pb-2"
+            style={{ fontFamily: "'Clash Display', sans-serif" }}
           >
-            CERTIFICATES
+            Certificates
           </motion.h1>
           <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 0.7, delay: 0.2, ease: [0.21, 0.47, 0.32, 0.98] }}
-            className="text-lg md:text-xl text-gray-500 max-w-2xl font-light leading-relaxed md:mx-auto"
+            className="text-base md:text-lg lg:text-xl text-gray-500 max-w-2xl font-medium leading-relaxed"
           >
-              A record of continuous learning and technical refinement.
+            A record of continuous learning and technical refinement.
           </motion.p>
         </div>
 
@@ -86,7 +87,7 @@ export default function Certificates() {
                      
 
                      <div className="relative z-10 flex flex-col items-center justify-center text-center w-full h-full">
-                        <span className="text-[10rem] md:text-[14rem] font-black text-slate-100 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 tracking-tighter uppercase select-none group-hover/card:scale-110 transition-transform duration-1000 ease-[cubic-bezier(0.25,0.46,0.45,0.94)]">
+                        <span className="text-[7rem] sm:text-[9rem] md:text-[14rem] font-black text-slate-100 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 tracking-tighter uppercase select-none group-hover/card:scale-110 transition-transform duration-1000 ease-[cubic-bezier(0.25,0.46,0.45,0.94)]">
                            {cert.issuer.substring(0, 1)}
                         </span>
                         <h2 className="relative text-3xl md:text-5xl font-black uppercase tracking-[0.2em] text-[#0f172a] group-hover/card:scale-105 transition-transform duration-700 ease-out z-10">

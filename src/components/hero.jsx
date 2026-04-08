@@ -25,22 +25,22 @@ export default function Hero({ onNavigate }) {
     <section className="min-h-screen relative w-full overflow-hidden flex flex-col justify-center font-sans bg-transparent">
 
       {/* TOP LEFT: DATE & TIME */}
-      <div className="absolute top-8 left-6 md:top-12 md:left-12 flex flex-col text-xs md:text-sm text-gray-500 tracking-wide font-light z-20">
+      <div className="absolute top-8 left-4 sm:left-6 md:top-12 md:left-12 flex flex-col text-[10px] sm:text-xs md:text-sm text-gray-500 tracking-wide font-light z-20">
         <span>IND {timeStr} • {dateStr}</span>
 
       </div>
 
       {/* TOP RIGHT: doamin*/}
-      <div className="absolute top-8 right-6 md:top-12 md:right-12 z-20">
+      <div className="absolute top-8 right-4 sm:right-6 md:top-12 md:right-12 z-20">
         <motion.div 
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-          className="group relative flex items-center gap-3 px-5 py-2 md:px-6 md:py-2.5 rounded-full bg-white/80 backdrop-blur-md border border-gray-900 overflow-hidden cursor-crosshair shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)] transition-shadow duration-500"
+          className="group relative flex items-center gap-1.5 sm:gap-3 px-3 py-1.5 sm:px-5 sm:py-2 md:px-6 md:py-2.5 rounded-full bg-white/80 backdrop-blur-md border border-gray-900 overflow-hidden cursor-crosshair shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)] transition-shadow duration-500"
         >
           <div className="absolute inset-0 bg-gray-900 translate-y-[100%] group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.19,1,0.22,1)] z-0"></div>
-          <span className="relative z-10 w-2 h-2 rounded-full bg-gray-900 group-hover:bg-emerald-400 group-hover:shadow-[0_0_8px_rgba(52,211,153,0.8)] transition-all duration-500"></span>
-          <span className="relative z-10 text-[10px] md:text-[11px] font-black tracking-[0.25em] uppercase text-gray-900 group-hover:text-white transition-colors duration-500">
+          <span className="relative z-10 w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-gray-900 group-hover:bg-emerald-400 group-hover:shadow-[0_0_8px_rgba(52,211,153,0.8)] transition-all duration-500"></span>
+          <span className="relative z-10 text-[8px] sm:text-[10px] md:text-[11px] font-black tracking-widest sm:tracking-[0.25em] uppercase text-gray-900 group-hover:text-white transition-colors duration-500 whitespace-nowrap">
             Software • Android
           </span>
         </motion.div>
@@ -123,7 +123,7 @@ export default function Hero({ onNavigate }) {
 
               {/* FIRST NAME left side shift */}
               <div
-                className="relative inline-block cursor-crosshair select-none md:-ml-8 lg:-ml-16 -translate-y-4 md:-translate-y-6 translate-x-6"
+                className="relative inline-block cursor-crosshair select-none md:-ml-8 lg:-ml-16 md:-translate-y-6 md:translate-x-6"
                 onMouseEnter={() => setHoveredWord('first')}
                 onMouseLeave={() => setHoveredWord(null)}
               >
@@ -154,14 +154,15 @@ export default function Hero({ onNavigate }) {
                     </div>
                   </motion.div>
                 )}
-                <h1 className="text-[20vw] md:text-[14vw] font-thin text-[#0f172a] uppercase leading-none tracking-tight">
+                <h1 className="text-[25vw] sm:text-[20vw] md:text-[14vw] font-thin text-[#0f172a] uppercase leading-none tracking-tight">
                   MADHAV
                 </h1>
               </div>
 
 
+              {/* DESKTOP BIO (Hidden on mobile) */}
               <div
-                className="relative max-w-[280px] md:max-w-[260px] mt-8 md:mt-0 z-20 cursor-crosshair p-3 pb-8 md:mr-8 md:mb-8 -translate-y-8 md:-translate-y-12 translate-x-8"
+                className="hidden md:block relative max-w-[260px] z-20 cursor-crosshair p-3 pb-8 mr-8 mb-8 -translate-y-12 translate-x-8"
                 onMouseEnter={() => setHoveredWord('bio')}
                 onMouseLeave={() => setHoveredWord(null)}
               >
@@ -244,10 +245,48 @@ export default function Hero({ onNavigate }) {
                   </motion.div>
                 )}
                 
-                <h1 className={`text-[20vw] md:text-[14vw] font-thin text-[#0f172a] uppercase leading-none tracking-tight transition-all duration-700 ${isPruthiBlurred ? 'blur-[10px] opacity-90' : 'blur-0 opacity-100'}`}>
+                <h1 className={`text-[25vw] sm:text-[20vw] md:text-[14vw] font-thin text-[#0f172a] uppercase leading-none tracking-tight transition-all duration-700 ${isPruthiBlurred ? 'blur-[10px] opacity-90' : 'blur-0 opacity-100'}`}>
                   PRUTHI
                 </h1>
               </div>
+            </div>
+
+            {/* MOBILE BIO (Hidden on desktop) */}
+            <div
+              className="block md:hidden relative w-full sm:max-w-[280px] mx-auto mt-8 z-20 cursor-crosshair p-3 pb-8"
+              onMouseEnter={() => setHoveredWord('bio')}
+              onMouseLeave={() => setHoveredWord(null)}
+            >
+              {hoveredWord === 'bio' && (
+                <motion.div
+                  layoutId="figma-box"
+                  className="absolute inset-0 border-[1.5px] border-[#3b82f6] z-20 pointer-events-none"
+                  transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                >
+                  <div className="absolute -top-[15px] -left-[1.5px] bg-[#3b82f6] text-white px-1.5 py-[1px] text-[8px] font-bold uppercase rounded-sm shadow-sm">
+                    Text
+                  </div>
+                  <div className="absolute -top-1 -left-1 w-2 h-2 bg-white border border-[#3b82f6] rounded-sm"></div>
+                  <div className="absolute -top-1 -right-1 w-2 h-2 bg-white border border-[#3b82f6] rounded-sm"></div>
+                  <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-white border border-[#3b82f6] rounded-sm"></div>
+                  <div className="absolute -bottom-1 -right-1 w-2 h-2 bg-white border border-[#3b82f6] rounded-sm"></div>
+
+                  <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-white border border-[#3b82f6] rounded-sm"></div>
+                  <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-white border border-[#3b82f6] rounded-sm"></div>
+                  <div className="absolute top-1/2 -translate-y-1/2 -left-1 w-2 h-2 bg-white border border-[#3b82f6] rounded-sm"></div>
+                  <div className="absolute top-1/2 -translate-y-1/2 -right-1 w-2 h-2 bg-white border border-[#3b82f6] rounded-sm"></div>
+
+                  <div className="absolute bottom-2 -right-8 flex flex-col items-center ">
+                    <FaMousePointer className="text-[#a855f7] text-lg absolute -top-4 -left-3 transform -rotate-12 drop-shadow-md z-30" />
+                    <div className="bg-[#a855f7] text-white px-2 py-[2px] text-[10px] font-medium rounded-full shadow-md whitespace-nowrap ml-4">
+                      Madhav
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+              <p className="text-gray-500 text-sm font-light leading-relaxed text-center sm:text-left">
+                <strong className="font-semibold text-gray-700">Software & Android Developer.</strong> Architecting elegant digital experiences. I specialize in building robust mobile applications and scalable systems that leave a lasting impact.
+              </p>
             </div>
 
           </div>

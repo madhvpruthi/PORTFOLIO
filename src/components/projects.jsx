@@ -103,7 +103,7 @@ export default function Projects() {
             initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 0.7, delay: 0.1, ease: [0.21, 0.47, 0.32, 0.98] }}
-            className="text-5xl md:text-7xl font-bold mb-6 tracking-tight text-gray-900 pb-2"
+            className="text-4xl md:text-5xl lg:text-7xl font-bold mb-6 tracking-tight text-gray-900 pb-2"
             style={{ fontFamily: "'Clash Display', sans-serif" }}
           >
             Featured Projects
@@ -112,7 +112,7 @@ export default function Projects() {
             initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 0.7, delay: 0.2, ease: [0.21, 0.47, 0.32, 0.98] }}
-            className="text-lg md:text-xl text-gray-500 max-w-2xl font-medium leading-relaxed"
+            className="text-base md:text-lg lg:text-xl text-gray-500 max-w-2xl font-medium leading-relaxed"
           >
 Selected works that reflect my approach to problem-solving, system design, and clean engineering.
           </motion.p>
@@ -129,7 +129,7 @@ Selected works that reflect my approach to problem-solving, system design, and c
               const isEven = idx % 2 === 0;
 
               return (
-                <div key={project.title} className={`relative flex flex-col md:flex-row items-center gap-10 md:gap-20 w-full group/project ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
+                <div key={project.title} className={`relative flex flex-col md:flex-row items-center gap-8 md:gap-20 w-full group/project ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
                   
 
                   <div className="absolute left-1/2 -translate-x-1/2 w-4 h-4 bg-white border-[3px] border-gray-900 rounded-full z-20 hidden md:block transform transition-transform duration-500 group-hover/project:scale-150"></div>
