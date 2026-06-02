@@ -1,4 +1,4 @@
-import { useRef, useMemo, useEffect, useState } from "react";
+import { useRef, useMemo, useEffect } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 
@@ -282,6 +282,10 @@ function FlowingToriiSystem({ count = 5000, pointSize = 0.24, shapeState = "home
     return { positions: pos, colorArray: col, sizesArray: sizeArray, particleData: pData };
   }, [count, toriiTargets]);
 
+  // Pre-allocated scratch objects to prevent garbage collection pauses in useFrame loop
+  const scratchVector = useMemo(() => new THREE.Vector3(), []);
+  const scratchEuler = useMemo(() => new THREE.Euler(), []);
+
   useFrame((state, delta) => {
     if (!pointsRef.current) return;
 
@@ -329,23 +333,26 @@ function FlowingToriiSystem({ count = 5000, pointSize = 0.24, shapeState = "home
         } else {
           p.u += p.orbitSpeed * delta * 15;
 
-          const localTarget = new THREE.Vector3(
+          // ZERO ALLOCATION: reuse scratchVector and scratchEuler
+          scratchVector.set(
             Math.cos(p.u) * p.currentRadius + Math.cos(p.u) * p.stray,
             Math.sin(p.u) * p.currentRadius + Math.sin(p.u) * p.stray,
             p.scatterRadius * Math.sin(p.v) + p.stray
           );
 
-          let wobbleRot = ring.rotation.clone();
-          wobbleRot.x += Math.sin(time * 0.3 + p.targetIndex) * 0.03;
-          wobbleRot.y += Math.cos(time * 0.3 + p.targetIndex) * 0.03;
+          scratchEuler.set(
+            ring.rotation.x + Math.sin(time * 0.3 + p.targetIndex) * 0.03,
+            ring.rotation.y + Math.cos(time * 0.3 + p.targetIndex) * 0.03,
+            ring.rotation.z
+          );
 
-          localTarget.applyEuler(wobbleRot);
-          localTarget.add(ring.position);
+          scratchVector.applyEuler(scratchEuler);
+          scratchVector.add(ring.position);
           
-          p.homeTarget = localTarget.clone();
-          baseTargetX = localTarget.x;
-          baseTargetY = localTarget.y;
-          baseTargetZ = localTarget.z;
+          p.homeTarget.copy(scratchVector);
+          baseTargetX = scratchVector.x;
+          baseTargetY = scratchVector.y;
+          baseTargetZ = scratchVector.z;
 
           if (Math.random() < 0.0001) { 
             p.isMerged = false;
@@ -360,7 +367,7 @@ function FlowingToriiSystem({ count = 5000, pointSize = 0.24, shapeState = "home
             array[ix] = startX;
             array[iy] = startY;
             array[iz] = startZ;
-            p.homeTarget = localTarget;
+            p.homeTarget.copy(scratchVector);
           }
         }
       } else if (shapeState === "skills") {
@@ -370,7 +377,10 @@ function FlowingToriiSystem({ count = 5000, pointSize = 0.24, shapeState = "home
         let orbitY = Math.sin(p.u) * p.scatterRadius;
         let orbitZ = Math.sin(p.v) * p.scatterRadius;
         
-        const localTarget = new THREE.Vector3(t.x + orbitX, t.y + orbitY, t.z + orbitZ);
+        // ZERO ALLOCATION: avoid Vector3 allocation
+        let targetX = t.x + orbitX;
+        let targetY = t.y + orbitY;
+        let targetZ = t.z + orbitZ;
 
         if (!p.isMerged) {
           if (p.isGathering) {
@@ -380,9 +390,9 @@ function FlowingToriiSystem({ count = 5000, pointSize = 0.24, shapeState = "home
 
             if (p.gatherWaitTime <= 0) p.isGathering = false;
           } else {
-            let dx = localTarget.x - curX;
-            let dy = localTarget.y - curY;
-            let dz = localTarget.z - curZ;
+            let dx = targetX - curX;
+            let dy = targetY - curY;
+            let dz = targetZ - curZ;
 
             let distSq = dx * dx + dy * dy + dz * dz;
             let distanceCurve = Math.max(0.1, 1 - Math.sqrt(distSq) / 30);
@@ -395,9 +405,9 @@ function FlowingToriiSystem({ count = 5000, pointSize = 0.24, shapeState = "home
           }
         } else {
           p.u += p.orbitSpeed * delta * 5;
-          baseTargetX = localTarget.x + Math.cos(p.u) * p.stray;
-          baseTargetY = localTarget.y + Math.sin(p.u) * p.stray;
-          baseTargetZ = localTarget.z + p.stray;
+          baseTargetX = targetX + Math.cos(p.u) * p.stray;
+          baseTargetY = targetY + Math.sin(p.u) * p.stray;
+          baseTargetZ = targetZ + p.stray;
 
           if (Math.random() < 0.0001) { 
             p.isMerged = false;
@@ -405,13 +415,9 @@ function FlowingToriiSystem({ count = 5000, pointSize = 0.24, shapeState = "home
             p.gatherWaitTime = Math.random() * 2.0;
 
             const isLeft = Math.random() > 0.5;
-            const startX = (isLeft ? -1 : 1) * (20 + Math.random() * 10);
-            const startY = (Math.random() - 0.5) * 30;
-            const startZ = (Math.random() - 0.5) * 20;
-
-            array[ix] = startX;
-            array[iy] = startY;
-            array[iz] = startZ;
+            array[ix] = (isLeft ? -1 : 1) * (20 + Math.random() * 10);
+            array[iy] = (Math.random() - 0.5) * 30;
+            array[iz] = (Math.random() - 0.5) * 20;
           }
         }
       } else if (shapeState === "projects") {
@@ -422,7 +428,12 @@ function FlowingToriiSystem({ count = 5000, pointSize = 0.24, shapeState = "home
         let localX = t.x * cosA - (t.z + 4) * sinA;
         let localZ = t.x * sinA + (t.z + 4) * cosA - 4;
         let localY = t.y + Math.sin(time * 2 + t.y * 0.5) * 0.5;
-        const localTarget = new THREE.Vector3(localX, localY, localZ);
+        
+        // ZERO ALLOCATION: avoid Vector3 allocation
+        let targetX = localX;
+        let targetY = localY;
+        let targetZ = localZ;
+
         if (!p.isMerged) {
           if (p.isGathering) {
             p.gatherWaitTime -= delta;
@@ -430,9 +441,9 @@ function FlowingToriiSystem({ count = 5000, pointSize = 0.24, shapeState = "home
             array[ix] += Math.cos(time * 0.8 + p.v) * 0.02;
             if (p.gatherWaitTime <= 0) p.isGathering = false;
           } else {
-            let dx = localTarget.x - curX;
-            let dy = localTarget.y - curY;
-            let dz = localTarget.z - curZ;
+            let dx = targetX - curX;
+            let dy = targetY - curY;
+            let dz = targetZ - curZ;
             let distSq = dx * dx + dy * dy + dz * dz;
             let distanceCurve = Math.max(0.1, 1 - Math.sqrt(distSq) / 30);
             array[ix] += dx * p.morphSpeed * (1 + distanceCurve);
@@ -442,9 +453,9 @@ function FlowingToriiSystem({ count = 5000, pointSize = 0.24, shapeState = "home
           }
         } else {
           p.u += p.orbitSpeed * delta * 5;
-          baseTargetX = localTarget.x + Math.cos(p.u) * p.stray * 0.3;
-          baseTargetY = localTarget.y + Math.sin(p.u) * p.stray * 0.3;
-          baseTargetZ = localTarget.z + p.stray * 0.3;
+          baseTargetX = targetX + Math.cos(p.u) * p.stray * 0.3;
+          baseTargetY = targetY + Math.sin(p.u) * p.stray * 0.3;
+          baseTargetZ = targetZ + p.stray * 0.3;
           if (Math.random() < 0.0001) {
             p.isMerged = false;
             p.isGathering = true;
@@ -470,7 +481,10 @@ function FlowingToriiSystem({ count = 5000, pointSize = 0.24, shapeState = "home
         let localY = t.x * sinA + t.y * cosA;
         let localZ = t.z;
         
-        const localTarget = new THREE.Vector3(localX + orbitX, localY + orbitY, localZ + orbitZ);
+        // ZERO ALLOCATION: avoid Vector3 allocation
+        let targetX = localX + orbitX;
+        let targetY = localY + orbitY;
+        let targetZ = localZ + orbitZ;
 
         if (!p.isMerged) {
           if (p.isGathering) {
@@ -480,9 +494,9 @@ function FlowingToriiSystem({ count = 5000, pointSize = 0.24, shapeState = "home
 
             if (p.gatherWaitTime <= 0) p.isGathering = false;
           } else {
-            let dx = localTarget.x - curX;
-            let dy = localTarget.y - curY;
-            let dz = localTarget.z - curZ;
+            let dx = targetX - curX;
+            let dy = targetY - curY;
+            let dz = targetZ - curZ;
 
             let distSq = dx * dx + dy * dy + dz * dz;
             let distanceCurve = Math.max(0.1, 1 - Math.sqrt(distSq) / 30);
@@ -495,9 +509,9 @@ function FlowingToriiSystem({ count = 5000, pointSize = 0.24, shapeState = "home
           }
         } else {
           p.u += p.orbitSpeed * delta * 5;
-          baseTargetX = localTarget.x + Math.cos(p.u) * p.stray;
-          baseTargetY = localTarget.y + Math.sin(p.u) * p.stray;
-          baseTargetZ = localTarget.z + p.stray;
+          baseTargetX = targetX + Math.cos(p.u) * p.stray;
+          baseTargetY = targetY + Math.sin(p.u) * p.stray;
+          baseTargetZ = targetZ + p.stray;
 
           if (Math.random() < 0.0001) { 
             p.isMerged = false;
@@ -559,45 +573,10 @@ function FlowingToriiSystem({ count = 5000, pointSize = 0.24, shapeState = "home
 }
 
 export default function Background3D({ shapeState }) {
-  const [screenType, setScreenType] = useState("desktop");
-
-  useEffect(() => {
-    const handleResize = () => {
-      const width = window.innerWidth;
-      if (width < 768) {
-        setScreenType("mobile");
-      } else if (width < 1024) {
-        setScreenType("tablet");
-      } else {
-        setScreenType("desktop");
-      }
-    };
-
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  if (screenType === "mobile") {
-    return (
-      <div className="fixed inset-0 w-full h-full bg-[#f4f1ea] overflow-hidden -z-10 pointer-events-none">
-        {/* Modern dynamic animated background blobs for mobile performance */}
-        <div className="absolute top-[-10%] left-[-15%] w-[80vw] h-[80vw] rounded-full bg-gradient-to-tr from-cyan-200/30 to-blue-200/20 blur-[80px] animate-blob-1" />
-        <div className="absolute bottom-[-15%] right-[-15%] w-[90vw] h-[90vw] rounded-full bg-gradient-to-bl from-amber-100/30 to-rose-100/20 blur-[100px] animate-blob-2" />
-        <div className="absolute top-[35%] right-[5%] w-[70vw] h-[70vw] rounded-full bg-gradient-to-br from-indigo-100/20 to-purple-100/10 blur-[90px] animate-blob-1" style={{ animationDelay: "-6s" }} />
-      </div>
-    );
-  }
-
-  // Tablet: 5000 particles, pointSize 0.16
-  // Desktop: 9000 particles, pointSize 0.12 (cut from 25000 for perfect 60fps on average laptops)
-  const particleCount = screenType === "tablet" ? 5000 : 9000;
-  const pointSize = screenType === "tablet" ? 0.16 : 0.12;
-
   return (
     <div style={{ position: "fixed", inset: 0, zIndex: -10, pointerEvents: "none", overflow: "hidden" }}>
       <Canvas camera={{ position: [0, 0, 18], fov: 60 }}>
-        <FlowingToriiSystem count={particleCount} pointSize={pointSize} shapeState={shapeState} />
+        <FlowingToriiSystem count={25000} pointSize={0.09} shapeState={shapeState} />
       </Canvas>
     </div>
   );
