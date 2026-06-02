@@ -1,4 +1,4 @@
-import { useRef, useMemo, useEffect } from "react";
+import { useRef, useMemo, useEffect, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 
@@ -559,10 +559,45 @@ function FlowingToriiSystem({ count = 5000, pointSize = 0.24, shapeState = "home
 }
 
 export default function Background3D({ shapeState }) {
+  const [screenType, setScreenType] = useState("desktop");
+
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+      if (width < 768) {
+        setScreenType("mobile");
+      } else if (width < 1024) {
+        setScreenType("tablet");
+      } else {
+        setScreenType("desktop");
+      }
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  if (screenType === "mobile") {
+    return (
+      <div className="fixed inset-0 w-full h-full bg-[#f4f1ea] overflow-hidden -z-10 pointer-events-none">
+        {/* Modern dynamic animated background blobs for mobile performance */}
+        <div className="absolute top-[-10%] left-[-15%] w-[80vw] h-[80vw] rounded-full bg-gradient-to-tr from-cyan-200/30 to-blue-200/20 blur-[80px] animate-blob-1" />
+        <div className="absolute bottom-[-15%] right-[-15%] w-[90vw] h-[90vw] rounded-full bg-gradient-to-bl from-amber-100/30 to-rose-100/20 blur-[100px] animate-blob-2" />
+        <div className="absolute top-[35%] right-[5%] w-[70vw] h-[70vw] rounded-full bg-gradient-to-br from-indigo-100/20 to-purple-100/10 blur-[90px] animate-blob-1" style={{ animationDelay: "-6s" }} />
+      </div>
+    );
+  }
+
+  // Tablet: 5000 particles, pointSize 0.16
+  // Desktop: 9000 particles, pointSize 0.12 (cut from 25000 for perfect 60fps on average laptops)
+  const particleCount = screenType === "tablet" ? 5000 : 9000;
+  const pointSize = screenType === "tablet" ? 0.16 : 0.12;
+
   return (
     <div style={{ position: "fixed", inset: 0, zIndex: -10, pointerEvents: "none", overflow: "hidden" }}>
       <Canvas camera={{ position: [0, 0, 18], fov: 60 }}>
-        <FlowingToriiSystem count={25000} pointSize={0.09} shapeState={shapeState} />
+        <FlowingToriiSystem count={particleCount} pointSize={pointSize} shapeState={shapeState} />
       </Canvas>
     </div>
   );
