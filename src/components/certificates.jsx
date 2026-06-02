@@ -4,6 +4,22 @@ import { FaExternalLinkAlt, FaAward } from 'react-icons/fa';
 
 const certificatesData = [
   {
+    title: "Kotlin",
+    issuer: "Meta",
+    description: "Certified in Kotlin programming by Meta, demonstrating expertise in Android-compatible OOP paradigms, coding structures, and mobile syntax.",
+    tags: ["Kotlin", "Meta", "OOP", "Mobile Dev"],
+    image: "https://images.unsplash.com/photo-1607799279861-4dd421887fb3?auto=format&fit=crop&q=80&w=2000",
+    link: "https://coursera.org/share/8fd20cc254e9a20406ff874d8876d552"
+  },
+  {
+    title: "Problem Solving",
+    issuer: "HackerRank",
+    description: "Certified in Problem Solving by HackerRank, mastering algorithms, data structures, and optimized mathematical computational reasoning.",
+    tags: ["Algorithms", "Data Structures", "Problem Solving"],
+    image: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&q=80&w=2000",
+    link: "https://www.hackerrank.com/certificates/df908156a4e3"
+  },
+  {
     title: "Deep Learning",
     issuer: "NPTEL",
     description: "Successfully completed and certified in Deep Learning, mastering neural networks, optimization algorithms, and advanced ML architectures.",
@@ -14,7 +30,7 @@ const certificatesData = [
   {
     title: "Java Maestro : Developing GUI",
     issuer: "LPU",
-    description: "Certified expertise in modern Java GUI development, encompassing object-oriented design and robust interactive application building.",
+    description: "Certified expertise in modern Java GUI development, encompassing object-oriented design and robust interactive application application building.",
     tags: ["Java", "GUI Development", "OOP"],
     image: "https://images.unsplash.com/photo-1549692520-acc6669e2f0c?auto=format&fit=crop&q=80&w=2000",
     link: "https://files.lpu.in/umsweb/skilldevcourse/SkillDevelopmentCertificates/12314273_834_20_08_2025.pdf"
@@ -22,7 +38,7 @@ const certificatesData = [
   {
     title: "Master Gen AI",
     issuer: "Infosys",
-    description: "A comprehensive certification exploring the capabilities of Generative AI, natural language processing, and cutting-edge LLMs.",
+    description: "A comprehensive certification exploring capabilities of Generative AI, natural language processing, and cutting-edge LLMs.",
     tags: ["Generative AI", "LLMs", "NLP"],
     image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&q=80&w=2000",
     link: "https://udemy-certificate.s3.amazonaws.com/pdf/UC-5a03cc23-20f7-447d-a53e-c6d1b71cec68.pdf"

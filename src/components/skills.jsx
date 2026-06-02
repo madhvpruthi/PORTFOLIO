@@ -131,7 +131,10 @@ export default function Skills() {
     
     { name: "Apache JMeter", category: "Performance Analysis", desc: "Load and performance testing.", colSpan: "md:col-span-1 lg:col-span-3", rowSpan: "md:row-span-1" },
     { name: "Multer", category: "File Uploads", desc: "Handling multipart file uploads.", colSpan: "md:col-span-1 lg:col-span-1", rowSpan: "md:row-span-1" },
-    { name: "C", category: "Low-Level", desc: "Low-level core logic engineering.", colSpan: "md:col-span-1 lg:col-span-1", rowSpan: "md:row-span-1" }
+    { name: "C", category: "Low-Level", desc: "Low-level core logic engineering.", colSpan: "md:col-span-1 lg:col-span-1", rowSpan: "md:row-span-1" },
+    { name: "Java Swing", category: "Desktop GUI", desc: "Building robust graphical user interfaces using Java's native Swing framework.", colSpan: "md:col-span-1 lg:col-span-1", rowSpan: "md:row-span-1" },
+    { name: "Git", category: "Version Control", desc: "Distributed version control system to manage source code history and track changes.", colSpan: "md:col-span-1 lg:col-span-1", rowSpan: "md:row-span-1" },
+    { name: "GitHub", category: "Collaboration", desc: "Hosting service for Git repositories, enabling code collaboration and CI/CD pipelines.", colSpan: "md:col-span-1 lg:col-span-1", rowSpan: "md:row-span-1" }
   ];
 
   return (
