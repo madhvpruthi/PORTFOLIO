@@ -67,9 +67,9 @@ export default function Hero({ onNavigate }) {
         {/* Separator a small light line before the resume button */}
         <div className="w-[1px] h-6 md:h-[1px] md:w-8 bg-gradient-to-b md:bg-gradient-to-r from-transparent via-gray-400/40 to-transparent md:my-1 opacity-80"></div>
 
-        {/* Resume₹ button */}
+        {/* Resume button */}
         <a
-          href="https://drive.google.com/file/d/1S7AVs8v5EaDAIr8hDQG4xUtmFcnORgOo/view?usp=sharing"
+          href="https://drive.google.com/file/d/15yoU2mdF39GctagLY-OgjVzUDK2EqLpF/view?usp=sharing"
           target="_blank"
           rel="noopener noreferrer"
           className="relative bg-white/60 hover:bg-white text-gray-700 w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center hover:scale-[1.12] transition-all duration-300 shadow-sm hover:shadow-[0_4px_15px_rgba(0,0,0,0.05)] group"

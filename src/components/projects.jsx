@@ -6,9 +6,39 @@ import roovimage from '../assets/roov.png';
 import aichatbot from '../assets/aichatbot.png';
 import expense from '../assets/expense.png';
 import nudge from '../assets/nudge.png';
-import { image } from 'framer-motion/client';
+import veyroImage from '../assets/veyro.png';
+import dukaanImage from '../assets/dukaan.png';
 
 const projectsData = [
+  {
+    title: "VEYRO",
+    description: "A modern, ultra-low latency video conferencing platform engineered for frictionless face-to-face team collaboration and instant room discovery.",
+    tech: ["Next.js", "FastAPI", "Jitsi Meet", "Firebase", "Redis", "Docker", "AWS", "REST APIs"],
+    image: veyroImage,
+    features: [
+      "Integrated Jitsi Meet SDK for HD video streaming, crisp audio, and custom participant invitations",
+      "Architected high-performance FastAPI asynchronous microservices with sub-100ms discovery response times",
+      "Containerized microservices with Docker and orchestrated automated CI/CD deployment pipelines on AWS",
+      "Enabled real-time room state management and low-latency session metadata caching via Redis and Firestore"
+    ],
+    github: "https://github.com/madhvpruthi/Veyro",
+    live: "https://veyro-three.vercel.app/"
+  },
+  {
+    title: "DUKAAN",
+    description: "A native offline-first Android POS and inventory system built for retail merchants, delivering instant billing and real-time stock intelligence.",
+    tech: ["Kotlin", "Android SDK", "Room DB", "Coroutines", "Firebase", "Firestore", "ZXing"],
+    image: dukaanImage,
+    features: [
+      "Engineered lightning-fast product catalog indexing and barcode scanning with ZXing for rapid checkout",
+      "Implemented an offline-first architecture using Room DB and Kotlin Coroutines for zero-downtime billing",
+      "Integrated digital receipts and unified cash/UPI reconciliation, reducing checkout turnaround by 40%",
+      "Automated real-time stock deductions and smart threshold alerts to eliminate inventory mismatches"
+    ],
+    github: "https://github.com/madhvpruthi/Dukaan",
+    live: "https://github.com/madhvpruthi/Dukaan/releases/tag/v1.0",
+    liveLabel: "Release"
+  },
   {
     title: "NUDGE ",
     description: "Not just an app, but a quiet guide in the chaos of daily life—NUDGE gently steers users back on track, one reminder at a time.",
@@ -192,7 +222,7 @@ Selected works that reflect my approach to problem-solving, system design, and c
                       {project.live && (
                         <a href={project.live} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-2.5 bg-white border border-gray-300 text-black rounded-full font-medium text-sm hover:bg-gray-50 hover:-translate-y-1 transition-all shadow-sm hover:shadow-md">
                           <FaExternalLinkAlt className="text-sm" />
-                          Live
+                          {project.liveLabel || "Live"}
                         </a>
                       )}
                     </div>
